@@ -12,14 +12,19 @@
 </head>
 <body>
   <ul id="dropdown1" class="dropdown-content">
-    <li><a href="#!">Airplanes</a></li>
-    <li><a href="#!">Places</a></li>
-    <li><a href="#!">Airports</a></li>
-    <li><a href="#!">Staff</a></li>
-    <li><a href="#!">Passengers</a></li>
+    <li><a href="{{url_for('airport')}}">Airports</a></li>
+    <li><a href="{{url_for('terminals')}}">Terminals</a></li>
+    <li><a href="{{url_for('airlines')}}">Airlines</a></li>
+    <li><a href="{{url_for('airstaff')}}">Air Staff</a></li>
+    <li><a href="{{url_for('locations')}}">Travel Stops</a></li>
+    <li><a href="{{url_for('onground')}}">On-Ground Staff</a></li>
+    <li><a href="{{url_for('passenger')}}">Passengers</a></li>
+    <li><a href="{{url_for('people')}}">People in Airport</a></li>
+    <li><a href="{{url_for('planes')}}">Planes</a></li>
+    <li><a href="{{url_for('allstaff')}}">All Staff</a></li>
   </ul>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="{{url_for('index')}}" class="brand-logo">Airplanes</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="{{url_for('index')}}" class="brand-logo">People</a>
       <ul class="right hide-on-med-and-down">
         <!--li><a href="#">Home</a></li-->
         <li>
@@ -39,28 +44,22 @@
       <table class="striped">
         <thead>
           <tr>
-              <th data-field="id">Company</th>
-              <th data-field="name">Model</th>
-              <th data-field="price">Item Price</th>
+              <th data-field="id">Name</th>
+              <th data-field="id">Date of Birth</th>
+              <th data-field="id">Gender</th>
+
           </tr>
         </thead>
 
         <tbody>
-          <tr>
-            <td>Boeing</td>
-            <td>747</td>
-            <td>$40 Million</td>
-          </tr>
-          <tr>
-            <td>Boeing</td>
-            <td>787</td>
-            <td>$35 Million</td>
-          </tr>
-          <tr>
-            <td>Airbus</td>
-            <td>A380</td>
-            <td>$50 Million</td>
-          </tr>
+          {% for row in personList %}
+            <tr>
+              {% for element in row %}
+                <td>{{element}}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+
         </tbody>
       </table>
 
