@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Flight Tracker</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/materialize.css') }}" media="screen,projection">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}" media="screen,projection">
+</head>
+<body>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="{{url_for('airport')}}">Airports</a></li>
+    <li><a href="{{url_for('terminals')}}">Terminals</a></li>
+    <li><a href="{{url_for('airlines')}}">Airlines</a></li>
+    <li><a href="{{url_for('airstaff')}}">Air Staff</a></li>
+    <li><a href="{{url_for('locations')}}">Travel Stops</a></li>
+    <li><a href="{{url_for('onground')}}">On-Ground Staff</a></li>
+    <li><a href="{{url_for('passenger')}}">Passengers</a></li>
+    <li><a href="{{url_for('people')}}">People in Airport</a></li>
+    <li><a href="{{url_for('planes')}}">Planes</a></li>
+    <li><a href="{{url_for('allstaff')}}">All Staff</a></li>
+  </ul>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{{url_for('index')}}" class="brand-logo">Airlines</a>
+      <ul class="right hide-on-med-and-down">
+        <!--li><a href="#">Home</a></li-->
+        <li>
+          <input placeholder="Search" id="search_box" type="text" class="validate">
+        </li>
+        <li>
+          <a href="#" id="search-button" class="btn waves-effect waves-light orange">Search</a>
+        </li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br/><br/>
+      <table class="striped">
+        <thead>
+          <tr>
+              <th data-field="id">Airline Name</th>
+              <th data-field="id">No. of Flights</th>
+              <th data-field="id">Flights</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for row in airlinesList %}
+            <tr>
+              {% for element in row %}
+                <td>{{element}}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src= "{{ url_for('static',filename='js/materialize.js') }}"></script>
+<script type="text/javascript" src= "{{ url_for('static',filename='js/init.js') }}"></script>
+
+  </body>
+</html>
