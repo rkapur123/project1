@@ -12,7 +12,8 @@
 </head>
 <body>
   <ul id="dropdown1" class="dropdown-content">
-    <li><a href="{{url_for('airport')}}">Airports</a></li>
+    <li><a href="{{url_for('staff')}}">Staff</a></li>
+  <!--  <li><a href="{{url_for('airport')}}">Airports</a></li>
     <li><a href="{{url_for('terminals')}}">Terminals</a></li>
     <li><a href="{{url_for('airlines')}}">Airlines</a></li>
     <li><a href="{{url_for('airstaff')}}">Air Staff</a></li>
@@ -21,16 +22,16 @@
     <li><a href="{{url_for('passenger')}}">Passengers</a></li>
     <li><a href="{{url_for('people')}}">People in Airport</a></li>
     <li><a href="{{url_for('planes')}}">Planes</a></li>
-    <li><a href="{{url_for('allstaff')}}">All Staff</a></li>
+    <li><a href="{{url_for('allstaff')}}">All Staff</a></li> -->
   </ul>
   <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="{{url_for('index')}}" class="brand-logo">Flight Tracker</a>
       <ul class="right hide-on-med-and-down">
         <li>
-          <input placeholder="Search" id="search_box" type="text" class="validate">
+          <input placeholder="Locations" id="search_box" type="text" class="validate">
         </li>
         <li>
-          <a href="#" id="search-button" class="btn waves-effect waves-light orange">Search</a>
+          <a href="{{url_for('locations')}}" id="search-button" class="btn waves-effect waves-light orange">Locate</a>
         </li>
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
@@ -43,9 +44,10 @@
       <table class="striped">
         <thead>
           <tr>
-              <th data-field="airline">Position</th>
-              <th data-field="code">Salary</th>
-              <th data-field="a_time">Airline</th>
+              <th data-field="Num">Flight Num</th>
+              <th data-field="loc">Place</th>
+              <th data-field="term">Terminal</th>
+              <th data-field="tick">Ticker</th>
           </tr>
         </thead>
 
