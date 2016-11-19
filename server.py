@@ -145,7 +145,7 @@ def index():
   #
   # example of a database query
   #
-  cursor = g.conn.execute("SELECT * FROM air_staff ")
+  cursor = g.conn.execute("SELECT p.flight_num, p.loc_name, t.term_num, t.ticker FROM planes p NATURAL JOIN locations l, terminals t WHERE p.flight_num = ANY(t.flight_list[1:10])")
   names = []
   for result in cursor:
     print "This is result " + str(result)
