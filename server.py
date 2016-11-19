@@ -331,12 +331,66 @@ def locations_destinations():
 
 @app.route('/passenger.html')
 def passenger():
-  cursor = g.conn.execute("SELECT * FROM passengers")
+
+
+  cursor = g.conn.execute("SELECT seat_num, name, dietary_restriction FROM passengers")
   passengerList = []
   for result in cursor:
     passengerList.append(result)
   cursor.close()
   return render_template('passenger.html', passengerList = passengerList)
+
+@app.route('/addp', methods = ['POST'])
+def addp():
+  seatno = 0
+  name = ""
+  dietary = ""
+  dob = ""
+  gender = ""
+  if request.method == 'POST':
+      seatno = request.form['seatno']
+      name = request.form['name']
+      dietary = request.form['dietary']
+      dob = request.form['dob']
+      gender = request.form['gender']
+
+      cursor = g.conn.execute("INSERT INTO person VALUES (%s, %s, %s)", name, dob, gender)
+      cursor.close
+
+      cursor = g.conn.execute("INSERT INTO passengers VALUES (%s,%s,%s,%s)",str(seatno), name, dob, dietary)
+      cursor.close
+  cursor = g.conn.execute("SELECT seat_num, name, dietary_restriction FROM passengers")
+  passengerList = []
+  for result in cursor:
+    passengerList.append(result)
+  cursor.close()
+  return render_template('passenger.html', passengerList = passengerList)
+
+@app.route('/deletep', methods = ['POST'])
+def deletep():
+
+    named = ""
+    if request.method == 'POST':
+        named = request.form['named']
+        cursor = g.conn.execute("DELETE FROM passengers p WHERE p.name = %s", named)
+        cursor.close
+    cursor = g.conn.execute("SELECT seat_num, name, dietary_restriction FROM passengers")
+    passengerList = []
+    for result in cursor:
+      passengerList.append(result)
+    cursor.close()
+    return render_template('passenger.html', passengerList = passengerList)
+
+
+
+
+
+
+
+
+
+
+  #return render_template('passenger.html')
 
 @app.route('/people.html')
 def people():
@@ -364,6 +418,64 @@ def allstaff():
     allStaffList.append(result)
   cursor.close()
   return render_template('allstaff.html', allStaffList = allStaffList)
+
+
+@app.route('/staff')
+def staff():
+    print "This is the string " + str(request.query_string)
+    air_staffList = []
+    ground_staffList = []
+    if (request.query_string == ""):
+        cursor = g.conn.execute("SELECT staff_id, name, experience, salary, position FROM staff NATURAL JOIN on_ground")
+        for result in cursor:
+          air_staffList.append(result)
+        cursor.close()
+
+        cursor = g.conn.execute("SELECT staff_id, name, experience, salary, position FROM staff NATURAL JOIN air_staff")
+        for result in cursor:
+          ground_staffList.append(result)
+        cursor.close()
+    elif (request.query_string == "salary"):
+        value = "%" + request.query_string + "%"
+        cursor = g.conn.execute("SELECT staff_id, name, experience, salary, position FROM staff s NATURAL JOIN on_ground ORDER BY s.salary")
+        for result in cursor:
+          air_staffList.append(result)
+        cursor.close()
+
+        cursor = g.conn.execute("SELECT staff_id, name, experience, salary, position FROM staff s NATURAL JOIN air_staff ORDER BY s.salary")
+        for result in cursor:
+          ground_staffList.append(result)
+        cursor.close()
+    elif (request.query_string == "experience"):
+        value = "%" + request.query_string + "%"
+        cursor = g.conn.execute("SELECT staff_id, name, experience, salary, position FROM staff s NATURAL JOIN on_ground ORDER BY s.experience")
+        for result in cursor:
+          air_staffList.append(result)
+        cursor.close()
+
+        cursor = g.conn.execute("SELECT staff_id, name, experience, salary, position FROM staff s NATURAL JOIN air_staff ORDER BY s.experience")
+        for result in cursor:
+          ground_staffList.append(result)
+        cursor.close()
+
+    else:
+        value = "%" + request.query_string + "%"
+        cursor = g.conn.execute("SELECT staff_id, name, experience, salary, position FROM staff s NATURAL JOIN on_ground WHERE s.name LIKE %s", value)
+        for result in cursor:
+          air_staffList.append(result)
+        cursor.close()
+
+        cursor = g.conn.execute("SELECT staff_id, name, experience, salary, position FROM staff s NATURAL JOIN air_staff WHERE s.name LIKE %s", value)
+        for result in cursor:
+          ground_staffList.append(result)
+        cursor.close()
+
+
+
+
+
+    return render_template('staff.html', air_staffList = air_staffList, ground_staffList = ground_staffList)
+
 
 
 #
